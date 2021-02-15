@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class AccountService implements UserDetailsService {
+public class MyUserDetailsService implements UserDetailsService {
 
   @Autowired
   AccountRepository accountRepository;
@@ -23,14 +23,15 @@ public class AccountService implements UserDetailsService {
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
     //GET ACCOUNT FROM DB
-    Account account = accountRepository.findByUsername(username);
+    Account account  = accountRepository.findByUsername(username);
+    String  password = account.password;
 
     //CREATE AUTHORITIES
     List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
                            authorities.add(new SimpleGrantedAuthority(account.role));
 
     //CREATE USER
-    User user = new User(account.username, account.password, true, true, true, true, authorities);
+    User user = new User(username, password, true, true, true, true, authorities);
 
     //RETURN USER
     return user;
