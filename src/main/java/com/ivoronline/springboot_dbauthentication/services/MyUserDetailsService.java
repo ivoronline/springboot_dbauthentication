@@ -31,7 +31,7 @@ public class MyUserDetailsService implements UserDetailsService {
                            authorities.add(new SimpleGrantedAuthority(account.role));
 
     //CREATE USER
-    User user = new User(username, password, true, true, true, true, authorities);
+    User user = new User(username, password, authorities);
 
     //RETURN USER
     return user;

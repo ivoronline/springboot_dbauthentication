@@ -10,8 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 public class AccountLoader implements CommandLineRunner {
 
-  @Autowired
-  private AccountRepository accountRepository;
+  @Autowired private AccountRepository accountRepository;
 
   @Override
   @Transactional
