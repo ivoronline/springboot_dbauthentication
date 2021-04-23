@@ -11,7 +11,7 @@ public class MyController {
 
   @Autowired AccountRepository accountRepository;
 
-  @Secured("ROLE_ADMIN")
+  @Secured("ROLE_USER")
   @RequestMapping("/Hello")
   public String hello() {
     return "Hello from Controller";

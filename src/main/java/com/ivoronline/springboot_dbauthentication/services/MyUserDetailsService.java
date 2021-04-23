@@ -16,25 +16,29 @@ import java.util.List;
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
-  @Autowired
-  AccountRepository accountRepository;
+  @Autowired AccountRepository accountRepository;
 
   @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+  public UserDetails loadUserByUsername(String enteredUsername) throws UsernameNotFoundException {
 
-    //GET ACCOUNT FROM DB
-    Account account  = accountRepository.findByUsername(username);
-    String  password = account.password;
+    //GET USER/ACCOUNT (From DB)
+    Account  account = accountRepository.findByUsername(enteredUsername);
 
-    //CREATE AUTHORITIES
+    //CHECK IF USER EXISTS
+    if (account == null) { throw new UsernameNotFoundException(enteredUsername); } //Bad credentials
+
+    //GET PASSWORD
+    String storedPassword = account.password;
+
+    //GET AUTHORITIES
     List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
                            authorities.add(new SimpleGrantedAuthority(account.role));
 
-    //CREATE USER
-    User user = new User(username, password, authorities);
+    //CREATE USER DETAILS OBJECT
+    UserDetails userDetails = new User(enteredUsername, storedPassword, authorities);
 
-    //RETURN USER
-    return user;
+    //RETURN USER DETAILS OBJECT
+    return userDetails ;
 
   }
 

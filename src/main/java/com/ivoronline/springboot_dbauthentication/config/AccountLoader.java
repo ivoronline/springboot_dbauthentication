@@ -18,9 +18,9 @@ public class AccountLoader implements CommandLineRunner {
 
     //CREATE ACCOUNT
     Account account           = new Account();
-            account.username  = "john";
-            account.password  = "johnpassword";
-            account.role      = "ROLE_ADMIN";
+            account.username  = "myuser";
+            account.password  = "myuserpassword";
+            account.role      = "ROLE_USER";
 
     //STORE ACCOUNT INTO DB
     accountRepository.save(account);
